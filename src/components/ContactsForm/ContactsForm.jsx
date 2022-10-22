@@ -1,5 +1,7 @@
 import { Component } from "react";
 import shortid from "shortid";
+import PropTypes from 'prop-types';
+import {FormWrapper, AddForm, AddLabel, AddInput, AddButton} from './ContactsForm.styled'
 
 class ContactsForm extends Component {
     nameInputId = shortid.generate();
@@ -34,13 +36,13 @@ class ContactsForm extends Component {
 
     render() {
         return (
-            <div>
-                <form autoComplete="off"
+            <FormWrapper>
+                <AddForm autoComplete="off"
                     onSubmit={this.handleSubmit}
                 >
-                <label htmlFor={this.nameInputId}>
+                <AddLabel htmlFor={this.nameInputId}>
                 Name
-                <input
+                <AddInput
                     type="text"
                     name="name"
                     pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -50,11 +52,11 @@ class ContactsForm extends Component {
                     value={this.state.name}
                     id={this.nameInputId}
                 />
-                </label>
+                </AddLabel>
                     
-                <label htmlFor={this.numberInputId}>
+                <AddLabel htmlFor={this.numberInputId}>
                 Number
-                <input
+                <AddInput
                     type="tel"
                     name="number"
                     pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -64,12 +66,22 @@ class ContactsForm extends Component {
                     value={this.state.number}
                     id={this.numberInputId}
                 />
-                </label>
-                <button type="submit">Add Contact</button>
-                </form>
-            </div>
+                </AddLabel>
+                <AddButton type="submit">Add Contact</AddButton>
+                </AddForm>
+            </FormWrapper>
         )
     }
+}
+
+ContactsForm.propTypes = {
+    name: PropTypes.string,
+    number: PropTypes.number,
+    numberInputId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    ]),
+    handleChange: PropTypes.func,
 }
 
 export default ContactsForm

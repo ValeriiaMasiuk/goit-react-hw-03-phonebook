@@ -1,17 +1,27 @@
-import React from "react";
+import PropTypes from 'prop-types';
+import { ContactsList, ContactItem, DeleteButton, ContactName, ContactNumber } from './ContactList.styled'
 
 const ContactList = ({ contacts, onContactDelete }) => {
     return (
-        <ul>
+        <ContactsList>
             {contacts.map(({ id, name, number }) => (
-                <li key={id}>
-                    <p>{name}</p>
-                    <p>{number}</p>
-                    <button onClick={() => onContactDelete(id)}>Delete contact</button>
-                </li>
+                <ContactItem key={id}>
+                    <ContactName>{name}</ContactName>
+                    <ContactNumber>{number}</ContactNumber>
+                    <DeleteButton onClick={() => onContactDelete(id)}>Delete contact</DeleteButton>
+                </ContactItem>
             ))}
-        </ul>
+        </ContactsList>
     )
+}
+
+ContactList.propTypes = {
+    id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    ]),
+    name: PropTypes.string,
+    number: PropTypes.number,
 }
 
 export default ContactList
